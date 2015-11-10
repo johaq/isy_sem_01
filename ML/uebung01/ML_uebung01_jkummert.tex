@@ -1,0 +1,57 @@
+
+\documentclass[addpoints]{exam}
+\usepackage{amsmath}
+
+
+
+\begin{document}
+\newcommand{\twoVec}[2]{\ensuremath{\begin{pmatrix} #1 \\ #2 \end{pmatrix} }}
+
+\printanswers
+\framedsolutions
+\firstpageheader{Johannes Kummert}{Advanced Machine Learning \\ Exercise 1}{\today}
+\runningheader{Johannes Kummert}{Exercise 1}{\today}
+
+\begin{questions}
+
+\question
+(Kernel Trick for polynomial SVM) Consider the polynomial Kernel $K(u,v) = (1+u*v)^2 $ where $u,v \in \left[-1,1\right]^d$.
+\begin{parts}
+\part
+show that for $d=2$ that $K(u,v)$ can be written as a scalar product $\Phi(u)*\Phi(v)$ in a six-dimensional state space and provide explicit expressions for the feature transform $\Phi(u)$.
+\begin{solution}
+\begin{align}
+	K(u,v)=(1+u*v)^2&=(1+\twoVec{u_1}{u_2}*\twoVec{v_1}{v_2})^2 \\
+	&=(1+u_1v_1+u_2v_2)^2 \\
+	&=1+2u_1v_1+2u_2v_2+2u_1v_1u_2v_2+(u_1v_1)^2+(u_2v_2)^2 \\
+	&=\begin{pmatrix} 1 \\ \sqrt{2}u_1 \\ \sqrt{2}u_2 \\ \sqrt{2}u_1u_2 \\ u_1^2 \\ u_2^2 \end{pmatrix}*\begin{pmatrix} 1, \\ \sqrt{2}v_1, \\ \sqrt{2}v_2, \\ \sqrt{2}v_1v_2, \\ v_1^2, \\ v_2^2, \end{pmatrix} \\
+	&=\Phi(u)*\Phi(v) 
+\end{align}
+\end{solution}
+
+\part
+generalize your result for general (integer) $d>1$.
+\begin{solution}
+\begin{align}
+	K(u,v)=(1+u*v)^2&=(1+\begin{pmatrix} u_1 \\ \vdots \\ u_d  \end{pmatrix}*\begin{pmatrix} v_1 \\ \vdots \\ v_d  \end{pmatrix})^2 \\
+	&=1+2u_1v_1+\cdots+2u_dv_d+\\
+	&2u_1v_1u_2v_2+\cdots+2u_1v_1u_dv_d+\\
+	&2u_2v_2u_3v_3+\cdots+2u_2v_2u_dv_d+\\
+	\vdots\\
+	&2u_{d-1}v_{d-1}u_dv_d+\\
+	&(u_1v_1)^2+\cdots+(u_dv_d)^2 \\
+	&=\begin{pmatrix} 1 \\ \sqrt{2}u_1 \\ \vdots \\ \sqrt{2}u_d \\ \sqrt{2}u_1u_2 \\ \vdots \\ \sqrt{2}u_1u_d \\ \sqrt{2}u_2u_3 \\ \vdots \\ \sqrt{2}u_2u_d \\ \vdots \\ \sqrt{2}u_{d-1}u_d\\ u_1^2 \\ \vdots \\ u_d^2 \end{pmatrix}*\begin{pmatrix} 1 \\ \sqrt{2}v_1 \\ \vdots \\ \sqrt{2}v_d \\ \sqrt{2}v_1v_2 \\ \vdots \\ \sqrt{2}v_1v_d \\ \sqrt{2}v_2v_3 \\ \vdots \\ \sqrt{2}v_2v_d \\ \vdots \\ \sqrt{2}v_{d-1}v_d\\ v_1^2 \\ \vdots \\ v_d^2 \end{pmatrix} \\
+	&=\Phi(u)*\Phi(v)
+\end{align}
+\end{solution}
+
+\part
+demonstrate for this case explicitly the validity of Mercer's condition, if the integration range is chosen as the hypercube $\left[-1,1\right]^d$.
+\begin{solution}
+\end{solution}
+
+\end{parts}
+
+\end{questions}
+
+\end{document}
