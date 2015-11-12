@@ -1,0 +1,93 @@
+/*! \mainpage Ray Tracing Documentation
+
+Welcome to the first exercise for the lecture Introduction to Computer Graphics. In this exercise we will implement a cool ray tracer.
+
+<h2>How to compile the code</h2>
+
+You should build the project using CMake (www.cmake.org). CMake is a meta build system that will generate project files for the development environment of your preference. For instance, on Linux/Mac it can generate Makefiles, on Windows it generates Visual Studio projects, and on Mac it can generate Xcode projects. CMake can also generate Eclipse projects, but we have never tested it.
+
+The CMake documentation is available online at:
+\li http://www.cmake.org/cmake/help/documentation.html
+
+You can also have a look at the quick reference pages to learn how to install and run CMake:
+\li http://www.cmake.org/cmake/help/install.html
+\li	http://www.cmake.org/cmake/help/runningcmake.html
+
+For example, on Linux you can type:
+\code
+1) cd <your RayTracing folder>
+2) mkdir build
+3) cd build
+4) cmake ..
+5) make
+\endcode
+
+On MacOS the commands are: 
+\code
+1) cd <your RayTracing folder>
+2) mkdir xcode
+3) cd xcode
+4) cmake -G Xcode ..
+5) open RayTracing.xcodeproj
+\endcode
+
+And finally on Windows (Visual Studio):
+\code
+1) Start the CMake-GUI
+2) Open the RayTracing toplevel directory as source directory
+3) Choose/create a build directory
+4) Click on "Configure" and select Visual Studio 11 or higher as generator
+5) Click on "Generate" to create the Visual Studio project files
+6) Open the Visual Studio solution file that is in the build directory you set before
+\endcode
+
+Since we are using some (cool!) C++11 features, please be aware to use an up-to-date compiler (GCC 4.7 or higher, Visual Studio 2012). 
+
+
+<h2>How to run the ray tracer</h2>
+
+If everything worked out, you can call the resulting program from the command line. The program expects two command line arguments: an input scene (*.sce) and an output image image name(*.tga). In order to render the scene with the three spheres you type:
+\code
+./raytrace ../scenes/spheres.sce output.tga
+\endcode
+If you use MSVC or Xcode, you can also define command line arguments within the software packages. This way you will be able to start the raytracter directly. Note that we provide the solution's images so that you know how the result should look like. If no software on your current OS support TGA images, consider to install an alternative image viewer (e.g. IrfanView)
+
+
+<h2>Code Overview</h2>
+\image html UML_Ray_Tracer.png
+For an overview, we have created a simplified UML class diagram of the raytracer. If you prefer to start directly by reading code, we recomment to start with the file raytrace.cpp. You will notice that it is divided into 3 parts (read_scene(), compute_image() and write_image()). The function compute_image() is the starting point for the raytracer. For a more detailed overview see also <a href="annotated.html">Classes</a>.
+
+
+<h2>Recommended order for the exercises</h2>
+
+We recommend that you follow this order for the individual sub-tasks, which are also listed in more detail in the <a href="todo.html">ToDo list</a>.
+
+<ol>
+
+<li>
+	<h4>Phong Lighting and Reflections</h4>
+	Start implementing the Phong shading model for the simple sphere scene. Your starting point will be the lighting() function in raytrace.cpp. Once you have finished the Phong lighting and get realistic illumination, continue with the reflections, which have to be added to trace() in raytrace.cpp. Finally, implement the ray-plane intersections in Plane::intersect() in Plane.cpp. Now your rendered result should be identical to the reference image of the sphere scene. Try as well the molecule scenes!
+</li>
+
+
+<li>
+  <h4>Triangle Meshes</h4>
+  The next step is the ray-triangle intersection (Mesh::intersect_triangle() in Mesh.cpp). Start testing with the simple cube scene with flat shading. Then try the office scene or the funny toon faces. 
+</li>
+
+
+<li>
+  <h4>Acceleration</h4>
+  Are you bored because the computation takes too long? Then let's make it faster! First implement the bounding box test for triangle meshes (Mesh::intersect_bounding_box() in Mesh.cpp). With this feature you should see a significant performance boost in the toon_faces scene. Also try using OpenMP, so that the ray tracer benefits from all the cores your PC has. Simply uncomment the (single) OpenMP line in compute_image() in raytrace.cpp.
+</li>
+
+
+<li>
+  <h4>Optional features</h4>
+  Do you still want to explore more features? Then why not try multi-sampling in order to reduce the aliasing problems? Simply adjust the function compute_image(), such that you shoot several rays for each pixel and average their resulting colors.
+</li>
+
+</ol>
+
+*/
+
