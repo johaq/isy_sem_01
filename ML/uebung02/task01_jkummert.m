@@ -41,6 +41,7 @@ for k=1:loops
         end
     end
     figure(1);
+    title('Neuron Activities')
     imshow(A);
     
     y(k)=sum(state_t);
@@ -48,4 +49,9 @@ for k=1:loops
 end
 
 figure(2);
+title('Activity of Neuron 21')
 scatter(1:loops,stateOverTime);
+
+figure(3);
+title('Output over time')
+scatter(1:loops,y);

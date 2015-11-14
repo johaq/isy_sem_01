@@ -21,9 +21,9 @@ b = b_deviation.*randn(noNeurons,1) + rndMean;
 w = ones(1,noNeurons);
 
 x = 0;
-loops = 100;
+loops = 200;
 
-y_t = 200.*sin(0.1.*(1:loops));
+y_t = 10.*sin(100.*(1:loops));
 y = ones(loops,1);
 
 for k=1:loops
@@ -45,8 +45,10 @@ for k=1:loops
     end
 end
 
-figure(1);
-plot(1:loops,y);
+hold on
+%figure(1);
+plot(1:loops,y,'r');
 
-figure(2);
-plot(1:loops,y_t);
+%figure(2);
+plot(1:loops,y_t,'g');
+hold off
