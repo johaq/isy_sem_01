@@ -1,0 +1,24 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+[C1]
+$$
+a: S(KI)xy = KIyxy = Ixy = xy = Axy 
+$$
+$$
+b: S(K(SI))Kxy = K(SI)xKxy = SI(Kx)y = Iy(Kxy) = y(Kxy) = yx = Rxy
+$$
+
+[C2]
+$$ a: SKII = KIII = KII = I $$
+$$ b: ASRIK = ARKIK = ARKK = AKK = KK $$
+$$ c: SAIx = AxIx = Axx = xx $$
+
+[C3] \\ 
+Der erste Ausdruck ist nicht legal. Die Fehlermeldung (The type variable 'a occurs inside 'a $\rightarrow$ 'b) gibt Hinweis darauf, dass das Problem ist, dass der Variablentyp in der Expression wieder auftaucht.
+
+Der zweite Ausdruck ist legal. Er ist vom Typ:
+'a $\rightarrow$ 'b $\rightarrow$ 'b
+\end{document}

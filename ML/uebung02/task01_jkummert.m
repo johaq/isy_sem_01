@@ -37,7 +37,7 @@ for k=1:loops
     % display gray image of states
     for i=1:abs(sqrt(noNeurons))
         for j=1:abs(sqrt(noNeurons))
-            A((1+(i-1)*10):(i*10),(1+(j-1)*10):(j*10)) = state_t((i-1)*abs(sqrt(noNeurons))+j);
+            A((1+(i-1)*100):(i*100),(1+(j-1)*100):(j*100)) = state_t((i-1)*abs(sqrt(noNeurons))+j);
         end
     end
     figure(1);

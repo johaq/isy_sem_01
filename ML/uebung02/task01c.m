@@ -41,7 +41,7 @@ for k=1:loops
     normalize = norm(state_t)^2;
     dy = y_t(k)-y(k);
     for i = 1:noNeurons
-        w(i) = (dy*state_t(i))/normalize;
+        w(i) = 1*(dy*state_t(i))/normalize;
     end
 end
 
