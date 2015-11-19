@@ -1,6 +1,6 @@
 clear all;
 close all;
-rng('default');
+rng('default'); % get same initial weights everytime
 
 %init
 noNeurons = 100;
@@ -10,7 +10,7 @@ state_prev = state_t;
 %parameters
 lambda=0.2;
 
-a_deviation = 0.1;
+a_deviation = 5;
 rndMean = 0;
 a = a_deviation.*randn(noNeurons,noNeurons) + rndMean; 
 
@@ -35,23 +35,29 @@ for k=1:loops
     state_prev = state_t;
     
     % display gray image of states
+    stateSize = 20;
     for i=1:abs(sqrt(noNeurons))
         for j=1:abs(sqrt(noNeurons))
-            A((1+(i-1)*100):(i*100),(1+(j-1)*100):(j*100)) = state_t((i-1)*abs(sqrt(noNeurons))+j);
+            A((1+(i-1)*stateSize):(i*stateSize),(1+(j-1)*stateSize):(j*stateSize)) = state_t((i-1)*abs(sqrt(noNeurons))+j);
         end
     end
     figure(1);
-    title('Neuron Activities')
     imshow(A);
+    title('Neuron Activities')
+
     
     y(k)=sum(state_t);
     k
 end
 
-figure(2);
-title('Activity of Neuron 21')
+aFig = figure(2);
+set(aFig, 'Position', [0 500 500 300])
 scatter(1:loops,stateOverTime);
+title('Activity of Neuron 21');
 
-figure(3);
-title('Output over time')
+
+bFig = figure(3);
+set(bFig, 'Position', [0 0 500 300])
 scatter(1:loops,y);
+title('Output over time')
+

@@ -10,9 +10,10 @@ noNeurons = 100;
 state_t = ones(1,noNeurons);
 state_prev = state_t;
 
+
 %parameters
-lambda=0.2;
-epsilon = 1; % learning rate
+lambda = 0.2;
+epsilon = 1;
 
 a_deviation = 0.1;
 rndMean = 0;
@@ -23,14 +24,16 @@ b = b_deviation.*randn(noNeurons,1) + rndMean;
 
 w = ones(1,noNeurons);
 
-x = 0; % inputs
-loops = 100;
+x = 0;
 
+loops = 100;
+sample = 1:0.5:loops/2+0.5;
+period = 5;
 amplitude = 100;
-frequency = 0.1;
-samplingrate = 1;
-y_t = amplitude.*sin(frequency.*(0:samplingrate:loops*samplingrate-samplingrate)); %target function
-y = ones(loops,1); %outputs
+h = floor((sample/period)+1/2);
+
+y_t = arrayfun(@(t) (4*amplitude/period)*(abs(mod(t,period)-(period/2))-(period/4)),sample);
+y = ones(loops,1);
 
 %% learning target
 for k=1:loops
@@ -44,8 +47,6 @@ for k=1:loops
     state_prev = state_t;
     
     y(k)=sum(w.*state_t);
-    
-    %online adaption
     normalize = norm(state_t)^2;
     dy = y_t(k)-y(k);
     for i = 1:noNeurons
@@ -54,9 +55,9 @@ for k=1:loops
 end
 
 hold on
-plot(0:samplingrate:loops*samplingrate-samplingrate,y,'r');
+plot(1:0.5:loops/2+0.5,y,'r');
 
-plot(0:samplingrate:loops*samplingrate-samplingrate,y_t,'g');
+plot(sample,y_t,'g');
 hold off
 
 %% predict
@@ -81,4 +82,4 @@ end
 
 aFig = figure(2);
 set(aFig, 'Position', [0 0 1400 250])
-plot(loops*samplingrate-samplingrate:samplingrate:2*(loops*samplingrate-samplingrate),y,'r');
+plot(loops/2+0.5:0.5:loops,y,'r');
