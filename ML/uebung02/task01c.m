@@ -10,8 +10,9 @@ state_prev = state_t;
 
 %parameters
 lambda=0.2;
+epsilon = 1; % learning rate
 
-a_deviation = 0.05;
+a_deviation = 0.1;
 rndMean = 0;
 a = a_deviation.*randn(noNeurons,noNeurons) + rndMean; 
 
@@ -23,7 +24,7 @@ w = ones(1,noNeurons);
 x = 0;
 loops = 200;
 
-y_t = 10.*sin(100.*(1:loops));
+y_t = 100.*sin(0.1.*(1:loops));
 y = ones(loops,1);
 
 for k=1:loops
@@ -38,10 +39,12 @@ for k=1:loops
     state_prev = state_t;
     
     y(k)=sum(w.*state_t);
+    
+    %online adaption
     normalize = norm(state_t)^2;
     dy = y_t(k)-y(k);
     for i = 1:noNeurons
-        w(i) = 1*(dy*state_t(i))/normalize;
+        w(i) = w(i) + epsilon*(dy*state_t(i))/normalize;
     end
 end
 
